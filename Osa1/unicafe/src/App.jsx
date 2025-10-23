@@ -8,15 +8,15 @@ const Header = (props) => {
   )
 }
 
-const Statistics = (props) => {
+const NumberOfFeedback = ({ text, number}) => {
   return (
     <>
-      <p>{props.text} {props.number}</p>
+      <p>{text} {number}</p>
     </>
   )
 }
 
-const NumberOfFeedback = ({ good, neutral, bad }) => {
+const TotalNumberOfFeedback = ({ good, neutral, bad }) => {
   return (
     <>
       <p>All {good + neutral + bad}</p>
@@ -36,6 +36,19 @@ const PositivePercentage = ({ good, neutral, bad }) => {
   return (
     <>
       <p>Positive {(good / (good + neutral + bad) * 100)} %</p>
+    </>
+  )
+}
+
+const Statistics = ({ good, neutral, bad }) => {
+  return (
+    <>
+      <NumberOfFeedback text='Good' number={good} />
+      <NumberOfFeedback text='Neutral' number={neutral} />
+      <NumberOfFeedback text='Bad' number={bad} />
+      <TotalNumberOfFeedback good={good} neutral={neutral} bad={bad} />
+      <FeedbackAverage good={good} neutral={neutral} bad={bad} />
+      <PositivePercentage good={good} neutral={neutral} bad={bad} />
     </>
   )
 }
@@ -69,13 +82,8 @@ function App() {
       <Button onClick={handleBadClick} text='Bad' />
 
       <Header text='Statistics' />
-      
-      <Statistics text='Good' number={good} />
-      <Statistics text='Neutral' number={neutral} />
-      <Statistics text='Bad' number={bad} />
-      <NumberOfFeedback good={good} neutral={neutral} bad={bad} />
-      <FeedbackAverage good={good} neutral={neutral} bad={bad} />
-      <PositivePercentage good={good} neutral={neutral} bad={bad} />
+
+      <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   )
 }
