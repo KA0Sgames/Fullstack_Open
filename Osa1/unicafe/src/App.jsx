@@ -16,6 +16,30 @@ const Statistics = (props) => {
   )
 }
 
+const NumberOfFeedback = ({ good, neutral, bad }) => {
+  return (
+    <>
+      <p>All {good + neutral + bad}</p>
+    </>
+  )
+}
+
+const FeedbackAverage = ({ good, neutral, bad }) => {
+  return (
+    <>
+      <p>Average {(good - bad) / (good + neutral + bad)}</p>
+    </>
+  )
+}
+
+const PositivePercentage = ({ good, neutral, bad }) => {
+  return (
+    <>
+      <p>Positive {(good / (good + neutral + bad) * 100)} %</p>
+    </>
+  )
+}
+
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
 
 
@@ -49,6 +73,9 @@ function App() {
       <Statistics text='Good' number={good} />
       <Statistics text='Neutral' number={neutral} />
       <Statistics text='Bad' number={bad} />
+      <NumberOfFeedback good={good} neutral={neutral} bad={bad} />
+      <FeedbackAverage good={good} neutral={neutral} bad={bad} />
+      <PositivePercentage good={good} neutral={neutral} bad={bad} />
     </div>
   )
 }
