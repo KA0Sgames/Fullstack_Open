@@ -8,27 +8,15 @@ const Header = (props) => {
   )
 }
 
-const NumberOfFeedback = ({ text, number}) => {
-  return (
-    <>
-      <p>{text} {number}</p>
-    </>
-  )
-}
-
 const TotalNumberOfFeedback = ({ good, neutral, bad }) => {
   return (
-    <>
-      <p>All {good + neutral + bad}</p>
-    </>
+    <StatisticLine text='All' value={good + neutral + bad} />
   )
 }
 
 const FeedbackAverage = ({ good, neutral, bad }) => {
   return (
-    <>
-      <p>Average {(good - bad) / (good + neutral + bad)}</p>
-    </>
+    <StatisticLine text='Average' value={(good - bad) / (good + neutral + bad)} />
   )
 }
 
@@ -51,9 +39,9 @@ const Statistics = ({ good, neutral, bad }) => {
 
   return (
     <>
-      <NumberOfFeedback text='Good' number={good} />
-      <NumberOfFeedback text='Neutral' number={neutral} />
-      <NumberOfFeedback text='Bad' number={bad} />
+      <StatisticLine text='Good' value={good} />
+      <StatisticLine text='Neutral' value={neutral} />
+      <StatisticLine text='Bad' value={bad} />
       <TotalNumberOfFeedback good={good} neutral={neutral} bad={bad} />
       <FeedbackAverage good={good} neutral={neutral} bad={bad} />
       <PositivePercentage good={good} neutral={neutral} bad={bad} />
@@ -62,6 +50,14 @@ const Statistics = ({ good, neutral, bad }) => {
 }
 
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
+
+const StatisticLine = ({ text, value }) => {
+  return (
+    <>
+      <p>{text} {value}</p>
+    </>
+  )
+}
 
 
 function App() {
