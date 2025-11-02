@@ -8,22 +8,11 @@ const Header = (props) => {
   )
 }
 
-const TotalNumberOfFeedback = ({ good, neutral, bad }) => {
-  return (
-    <StatisticLine text='All' value={good + neutral + bad} />
-  )
-}
-
-const FeedbackAverage = ({ good, neutral, bad }) => {
-  return (
-    <StatisticLine text='Average' value={(good - bad) / (good + neutral + bad)} />
-  )
-}
-
-const PositivePercentage = ({ good, neutral, bad }) => {
+const StatisticLine = ({ text, value }) => {
   return (
     <>
-      <p>Positive {(good / (good + neutral + bad) * 100)} %</p>
+      <td>{text}</td>
+      <td>{value}</td>
     </>
   )
 }
@@ -31,34 +20,44 @@ const PositivePercentage = ({ good, neutral, bad }) => {
 const Statistics = ({ good, neutral, bad }) => {
   if (good + neutral + bad === 0) {
     return (
-      <>
-        <p>No feedback given</p>
-      </>
+      <table>
+        <tbody>
+          <tr>
+            <td>No feedback given</td>
+          </tr>
+        </tbody>
+      </table>
     )
   }
 
   return (
-    <>
-      <StatisticLine text='Good' value={good} />
-      <StatisticLine text='Neutral' value={neutral} />
-      <StatisticLine text='Bad' value={bad} />
-      <TotalNumberOfFeedback good={good} neutral={neutral} bad={bad} />
-      <FeedbackAverage good={good} neutral={neutral} bad={bad} />
-      <PositivePercentage good={good} neutral={neutral} bad={bad} />
-    </>
+    <table>
+      <tbody>
+        <tr>
+          <StatisticLine text='Good' value={good} />
+        </tr>
+        <tr>
+          <StatisticLine text='Neutral' value={neutral} />
+        </tr>
+        <tr>
+          <StatisticLine text='Bad' value={bad} />
+        </tr>
+        <tr>
+          <StatisticLine text='All' value={good + neutral + bad} />
+        </tr>
+        <tr>
+          <StatisticLine text='Average' value={(good - bad) / (good + neutral + bad)} />
+        </tr>
+        <tr>
+          <StatisticLine text='Positive' value={(good / (good + neutral + bad) * 100)} />
+          <td>%</td>
+        </tr>
+      </tbody>
+    </table>
   )
 }
 
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
-
-const StatisticLine = ({ text, value }) => {
-  return (
-    <>
-      <p>{text} {value}</p>
-    </>
-  )
-}
-
 
 function App() {
   const [good, setGood] = useState(0)
