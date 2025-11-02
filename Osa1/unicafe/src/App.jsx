@@ -41,6 +41,14 @@ const PositivePercentage = ({ good, neutral, bad }) => {
 }
 
 const Statistics = ({ good, neutral, bad }) => {
+  if (good + neutral + bad === 0) {
+    return (
+      <>
+        <p>No feedback given</p>
+      </>
+    )
+  }
+
   return (
     <>
       <NumberOfFeedback text='Good' number={good} />
