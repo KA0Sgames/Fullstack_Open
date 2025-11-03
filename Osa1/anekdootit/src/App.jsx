@@ -1,5 +1,13 @@
 import { useState } from 'react'
 
+const DisplayVotes = ({ selected, votes }) => {
+  return (
+    <>
+      <p>has {votes[selected]} votes</p>
+    </>
+  )
+}
+
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
 
 const getRndInteger = ({ min, max }) => {
@@ -21,16 +29,25 @@ const App = () => {
   ]
 
   const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState(Array(anecdotes.length).fill(0))
 
-  const handleClick = () => {
+  const handleNextClick = () => {
     setSelected(getRndInteger({min: 0, max: anecdotes.length}))
+  }
+
+  const handleVoteClick = () => {
+    const newVotes = {...votes}
+    newVotes[selected] += 1
+    setVotes(newVotes)
   }
 
   return (
     <div>
       <p>{anecdotes[selected]}</p>
+      <DisplayVotes selected={selected} votes={votes} />
 
-      <Button onClick={handleClick} text='next anecdote' />
+      <Button onClick={handleVoteClick} text='vote' />
+      <Button onClick={handleNextClick} text='next anecdote' />
     </div>
   )
 }
