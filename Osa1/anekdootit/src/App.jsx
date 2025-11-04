@@ -1,9 +1,31 @@
 import { useState } from 'react'
 
+const Header = ({ text }) => {
+  return (
+    <>
+      <h1>{text}</h1>
+    </>
+  )
+}
+
+const DisplayDailyAnecdote = ({ anecdotes, selected }) => {
+  return (
+    <p>{anecdotes[selected]}</p>
+  )
+}
+
 const DisplayVotes = ({ selected, votes }) => {
   return (
     <>
       <p>has {votes[selected]} votes</p>
+    </>
+  )
+}
+
+const DisplayMostPopular = ({ anecdotes, mostVoted }) => {
+  return (
+    <>
+      <p>{anecdotes[mostVoted]}</p>
     </>
   )
 }
@@ -30,24 +52,36 @@ const App = () => {
 
   const [selected, setSelected] = useState(0)
   const [votes, setVotes] = useState(Array(anecdotes.length).fill(0))
+  const [mostVoted, setMostVoted] = useState(0)
 
   const handleNextClick = () => {
     setSelected(getRndInteger({min: 0, max: anecdotes.length}))
   }
 
   const handleVoteClick = () => {
-    const newVotes = {...votes}
+    const newVotes = [...votes]
+
     newVotes[selected] += 1
+
+    if (newVotes[selected] > Math.max(...votes)) {
+      setMostVoted(selected)
+    }
+
     setVotes(newVotes)
   }
 
   return (
     <div>
-      <p>{anecdotes[selected]}</p>
+      <Header text='Anecdote of the day' />
+      <DisplayDailyAnecdote anecdotes={anecdotes} selected={selected} />
       <DisplayVotes selected={selected} votes={votes} />
 
       <Button onClick={handleVoteClick} text='vote' />
       <Button onClick={handleNextClick} text='next anecdote' />
+
+      <Header text='Anecdote with most votes' />
+      <DisplayMostPopular anecdotes={anecdotes} mostVoted={mostVoted} />
+      <DisplayVotes selected={mostVoted} votes={votes} />
     </div>
   )
 }
