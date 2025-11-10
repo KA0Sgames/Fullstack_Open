@@ -1,15 +1,5 @@
 import Course from './components/Course'
 
-
-
-/* const Total = (props) => {
-  return (
-    <>
-      <p>Number of exercises {props.kurssi.parts[0].exercises + props.kurssi.parts[1].exercises + props.kurssi.parts[2].exercises}</p>
-    </>
-  )
-} */
-
 const App = () => {
   const courses = [
     {
@@ -48,7 +38,7 @@ const App = () => {
           id: 2
         }
       ]
-    }
+    },
   ]
 
   return (
