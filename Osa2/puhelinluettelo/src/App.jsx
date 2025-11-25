@@ -13,6 +13,10 @@ const App = () => {
   ])
   const [filter, setFilter] = useState('')
 
+  const personsToShow = filter
+    ? persons.filter(person => person.name.toLowerCase().includes(filter.toLowerCase()))
+    : persons
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -22,7 +26,7 @@ const App = () => {
       <h2>add a new</h2>
       <AddPerson persons={persons} setPersons={setPersons}/>
       <h2>Numbers</h2>
-      <Persons persons={persons} filter={filter} />
+      <Persons persons={personsToShow} />
     </div>
   )
 }
